@@ -1,4 +1,4 @@
-import smtplib,urllib,json,datetime
+import smtplib,urllib,json,datetime,sys,re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -24,7 +24,8 @@ final_display = final_display.replace("href=\"/wiki/","href=\"http://en.wikipedi
 
 #Email the news
 FROM = 'sending_email_address'
-TO = ['recipient_email_address','recipient2_email_address']
+#Create TO listing based on first argument, addresses delimited by commas
+TO = re.split(",",str(sys.argv[1]))
 MSG = MIMEMultipart('alternative')
 MSG['Subject'] = "Newsmailer for "+subject_date_string
 MSG['From'] = FROM
